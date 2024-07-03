@@ -32,8 +32,6 @@ namespace FA.Controllers
         [HttpGet("Pages")]
         public IActionResult boo(int page, int noelements)
         {
-            ;
-
             return Ok(_foodService.returnPage(page - 1 , noelements));
         }
 
