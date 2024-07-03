@@ -1,5 +1,8 @@
 
 using FA.Models;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace FA
 {
@@ -15,7 +18,8 @@ namespace FA
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddSingleton<FoodService>();
+            builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlite("data source = db.db"));
+            builder.Services.AddScoped<FoodService>();
 
             var app = builder.Build();
 
@@ -34,9 +38,9 @@ namespace FA
             app.MapControllers();
 
             app.Run();
-
-
-
+                
         }
+
     }
 }
+

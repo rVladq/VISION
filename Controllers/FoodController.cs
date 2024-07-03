@@ -20,6 +20,22 @@ namespace FA.Controllers
             return Ok(_foodService.GetAll().ToArray());
         }
 
+        [HttpGet("GetOddItems")]
+        public IActionResult foo()
+        {
+            List<Food> arr = _foodService.GetAll().ToList();
+            arr = arr.Where(food => food.Id % 2 != 0).ToList();
+
+            return Ok(arr.ToArray());
+        }
+
+        [HttpGet("Pages")]
+        public IActionResult boo(int page, int noelements)
+        {
+            ;
+
+            return Ok(_foodService.returnPage(page - 1 , noelements));
+        }
 
         [HttpPost("PostFoodItems")]
         public IActionResult Post(Food food)
@@ -49,8 +65,6 @@ namespace FA.Controllers
             _foodService.Delete(id);
             return Ok();
         }
-
-
 
     }
 }

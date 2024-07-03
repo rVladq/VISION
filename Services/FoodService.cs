@@ -1,50 +1,49 @@
-﻿using FA.Models;
-using System.ComponentModel.Design;
-using System.Reflection;
+﻿using FA;
+using FA.Models;
+using Microsoft.OpenApi.Validations;
 
 public class FoodService
 {
-    private List<Food> context = new List<Food> {
-            new Food { Id = 0, Name = "Burger", Description = ".", Recipe = "meat" },
-            new Food { Id = 1, Name = "Cheesburger", Description = "..", Recipe = "meat, cheese" },
-            new Food { Id = 2, Name = "Chicken", Description = "...", Recipe = "meat" },
-            new Food { Id = 3, Name = "Scrambled Eggs", Description = "....", Recipe = "eggs" }
-        };
-
-    public FoodService() { }
+    private MyDbContext _dbContext;
+    public FoodService(MyDbContext context) {
+        _dbContext = context;
+    }
 
     public List<Food> GetAll()
     {
-        return context;
+        return _dbContext.Set<Food>().ToList();
     }
 
     public Food? GetById(int id)
     {
-        return context.FirstOrDefault(food => food.Id == id);
+        return _dbContext.Set<Food>().FirstOrDefault(food => food.Id == id);
     }
 
-    public void Add( Food f )
+    public void Add(Food f)
     {
-        context.Add(f);
+        _dbContext.Set<Food>().Add(f);
+        _dbContext.SaveChanges();
     }
 
     public void Delete(int id)
     {
 
-        if (id > context.Count || id < 1) { return; }
-        Food toModify = context.FirstOrDefault(x => x.Id == id);
+        if (id > _dbContext.Set<Food>().Count() || id < 1) { return; }
+        var set = _dbContext.Set<Food>();
+        Food toModify = set.FirstOrDefault(x => x.Id == id);
         if (toModify != null)
-            context.Remove(toModify);
-    
+            set.Remove(toModify);
+        _dbContext.SaveChanges();
+
     }
 
     public List<Food> FindByName(string name)
     {
         List<Food> foundItems = new List<Food>();
 
-        foreach (var item in context)
+        foreach (var item in _dbContext.Set<Food>())
         {
-            if(item.Name == name)
+            if (item.Name == name)
             {
                 foundItems.Add(item);
             }
@@ -54,24 +53,30 @@ public class FoodService
 
     public void Update(int id, Food f)
     {
-        Food toModify = context.FirstOrDefault(x => x.Id == id);
+        Food toModify = _dbContext.Set<Food>().FirstOrDefault(x => x.Id == id);
         if (toModify != null)
         {
-            context.Remove(toModify );
-            context.Add(f);
+            _dbContext.Remove(toModify);
+            _dbContext.SaveChanges();
         }
     }
 
-    public Food getRandom()
+    public List<Food> returnPage(int page, int elements)
     {
-        int rnd = new Random().Next(1, context.Count);
-        
+        return _dbContext.Set<Food>().Skip<Food>(page*elements).Take<Food>(elements).ToList<Food>();
+    }
+
+/*    public Food getRandom()
+    {
+        var set = _dbContext.Set<Food>();
+        int rnd = new Random().Next(1, set.Count());
+
         Food randomItem = context.Find(x => x.Id == rnd);
         if (randomItem != null)
             return randomItem;
 
-        return null; 
+        return null;
 
-    }
+    }*/
 
 }
