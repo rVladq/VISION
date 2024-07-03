@@ -3,7 +3,7 @@ using Day1.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Day1.Controllers
-{        
+{
     [ApiController]
     [Route("[controller]")]
     public class DrinkController : ControllerBase
@@ -25,13 +25,13 @@ namespace Day1.Controllers
         {
             if (_drinkService.GetById(drink.Id) is not null)
                 return BadRequest("Drink id already exists.");
-           
+
             _drinkService.Add(drink);
             return Ok();
         }
 
         [HttpPut("PutDrinks")]
-        
+
         public IActionResult Put(Drink drink)
         {
             if (_drinkService.GetById(drink.Id) is null)
@@ -44,10 +44,23 @@ namespace Day1.Controllers
         [HttpDelete("DeleteDrink")]
         public IActionResult Delete(int id)
         {
-            if(_drinkService.GetById(id) is not null)
+            if (_drinkService.GetById(id) is not null)
                 _drinkService.Delete(id);
             return Ok();
 
+        }
+
+        [HttpGet("GetOdd")]
+        public IActionResult GetOdd()
+        {
+            var oddItems = _drinkService.GetOddDrinks();
+            return Ok(oddItems);
+        }
+
+        [HttpGet("Pages")]
+        public IActionResult boo(int page, int noelements)
+        {
+            return Ok(_drinkService.returnPage(page - 1, noelements));
         }
     }
 }

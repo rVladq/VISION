@@ -1,73 +1,71 @@
 ﻿
+using Day1.Database;
 using Day1.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
 
 namespace Day1.Services
 
-
 {
-
     public class DrinkService
     {
-        private List<Drink> context = new List<Drink> {
-        new Drink{Id=1, Name="Drink1", Description="Sweet", Price=10},
-        new Drink{Id=2, Name="Drink2", Description="Sour", Price = 12},
-        new Drink{Id=3, Name="Drink3", Description="Sweet&Sour", Price = 6},
-        new Drink{Id=4, Name="Drink4", Description="Sparkling", Price = 8},
-        new Drink{Id=5, Name="Drink5", Description="Coffee", Price = 4},
-        new Drink{Id=6, Name="Drink6", Description="Water", Price = 3},
-        new Drink{Id=7, Name="Drink7", Description="Lemonade", Price=10}
-        };
-
-        public DrinkService() { }
+        private readonly DatabaseContext _drinkContext;
+        public DrinkService(DatabaseContext context) {
+            _drinkContext = context;
+        }
 
         public List<Drink> GetAll()
         {
-            return context;
+            return _drinkContext.Set<Drink>().ToList();
         }
 
         public Drink? GetById(int id)
         {
-            return context.FirstOrDefault(d =>  d.Id == id);
+            return _drinkContext.Set<Drink>().FirstOrDefault(drink => drink.Id == id);
 
         }
 
         public void Add(Drink drink)
         {
-            context.Add(drink);   
+            _drinkContext.Set<Drink>().Add(drink);
+            _drinkContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var drink = context.FirstOrDefault(d => d.Id == id);
-            context.Remove(drink);
+            var drink = _drinkContext.Set<Drink>().FirstOrDefault(d => d.Id == id);
+            _drinkContext.Set<Drink>().Remove(drink);
+            _drinkContext.SaveChanges();
         }
         public List<Drink> FindByName(string name)
         {
-            List<Drink> list = new List<Drink> ();
-            foreach (Drink drink in context)
+            List<Drink> list = new List<Drink>();
+            foreach (Drink drink in _drinkContext.Set<Drink>())
             {
-                if(drink.Name == name)
+                if (drink.Name == name)
                     list.Add(drink);
             }
             return list;
         }
         public void Update(int id, Drink drink)
         {
-            var check = context.FirstOrDefault(u => u.Id == id);
+            var check = _drinkContext.Set<Drink>().FirstOrDefault(u => u.Id == id);
             if (check != null)
             {
                 check.Name = drink.Name;
                 check.Description = drink.Description;
                 check.Price = drink.Price;
+                _drinkContext.SaveChanges();
             }
         }
-        public Drink GetRandom()
+        public List<Drink> GetOddDrinks()
         {
-            Random random = new Random();
-            return context[random.Next(context.Count)];
+            return _drinkContext.Drinks.Where(d => d.Id % 2 != 0).ToList();
         }
-
+        public List<Drink> returnPage(int page, int elements)
+        {
+            return _drinkContext.Set<Drink>().Skip<Drink>(page * elements).Take<Drink>(elements).ToList<Drink>();
+        }
     }
 
 }

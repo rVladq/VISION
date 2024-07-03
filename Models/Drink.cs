@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Day1.Models
 {
-    public class Drink {
+    public class Drink
+    {
         [Required]
         public int Id { get; set; }
 
@@ -14,8 +15,8 @@ namespace Day1.Models
         [StringLength(100, ErrorMessage = "Description length can't be more than 100.")]
         public string Description { get; set; }
 
-        [Range(0,int.MaxValue, ErrorMessage = "Price must be a positive integer.")]
-        public int Price {  get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Price must be a positive integer.")]
+        public int Price { get; set; }
     }
 }
 

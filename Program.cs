@@ -1,4 +1,6 @@
+using Day1.Database;
 using Day1.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Day1
 {
@@ -14,7 +16,8 @@ namespace Day1
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddSingleton<DrinkService>();
+            builder.Services.AddScoped<DrinkService>();
+            builder.Services.AddDbContext<DatabaseContext>(o => o.UseSqlite("Data Source = Database.db"));
 
             var app = builder.Build();
 
