@@ -1,5 +1,6 @@
 ﻿namespace FA.Models
 {
+
     public class Food
     {
     
@@ -10,10 +11,6 @@
 
         public string Recipe { get; set; }
 
-
-
     }
-
-
 
 }

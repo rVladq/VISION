@@ -8,22 +8,22 @@ namespace FA.Controllers
     public class FoodController : ControllerBase
     {
 
-        private readonly FoodService _foodService;
-        public FoodController(FoodService foodService)
+        private readonly FoodService foodService;
+        public FoodController(FoodService _foodService)
         {
-            _foodService = foodService;
+            foodService = _foodService;
         }
 
         [HttpGet("GetFoodItems")]
         public IActionResult Get()
         {
-            return Ok(_foodService.GetAll().ToArray());
+            return Ok(foodService.GetAll().ToArray());
         }
 
         [HttpGet("GetOddItems")]
         public IActionResult foo()
         {
-            List<Food> arr = _foodService.GetAll().ToList();
+            List<Food> arr = foodService.GetAll().ToList();
             arr = arr.Where(food => food.Id % 2 != 0).ToList();
 
             return Ok(arr.ToArray());
@@ -32,15 +32,15 @@ namespace FA.Controllers
         [HttpGet("Pages")]
         public IActionResult boo(int page, int noelements)
         {
-            return Ok(_foodService.returnPage(page - 1 , noelements));
+            return Ok(foodService.returnPage(page - 1 , noelements));
         }
 
         [HttpPost("PostFoodItems")]
         public IActionResult Post(Food food)
         {
-            if (_foodService.GetById(food.Id) is null)
+            if (foodService.GetById(food.Id) is null)
             {
-                _foodService.Add(food);
+                foodService.Add(food);
                 return Ok("Food was added sucessfully");
             }
             else
@@ -52,7 +52,7 @@ namespace FA.Controllers
         [HttpPut("PutFoodItems")]
         public IActionResult Put(int id, Food f)
         {
-            _foodService.Update(id, f);
+            foodService.Update(id, f);
             return Ok();
 
         }
@@ -60,7 +60,7 @@ namespace FA.Controllers
         [HttpDelete("DeleteFoodItems")]
         public IActionResult Delete(int id)
         {
-            _foodService.Delete(id);
+            foodService.Delete(id);
             return Ok();
         }
 

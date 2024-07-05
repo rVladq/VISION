@@ -34,7 +34,6 @@ namespace FA
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();

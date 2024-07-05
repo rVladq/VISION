@@ -4,36 +4,36 @@ using Microsoft.OpenApi.Validations;
 
 public class FoodService
 {
-    private MyDbContext _dbContext;
-    public FoodService(MyDbContext context) {
-        _dbContext = context;
+    private MyDbContext dbContext;
+    public FoodService(MyDbContext _dbContext) {
+        dbContext = _dbContext;
     }
 
     public List<Food> GetAll()
     {
-        return _dbContext.Set<Food>().ToList();
+        return dbContext.Set<Food>().ToList();
     }
 
     public Food? GetById(int id)
-    {
-        return _dbContext.Set<Food>().FirstOrDefault(food => food.Id == id);
+    {   
+        return dbContext.Set<Food>().FirstOrDefault(food => food.Id == id);
     }
 
     public void Add(Food f)
     {
-        _dbContext.Set<Food>().Add(f);
-        _dbContext.SaveChanges();
+        dbContext.Set<Food>().Add(f);
+        dbContext.SaveChanges();
     }
 
     public void Delete(int id)
     {
 
-        if (id > _dbContext.Set<Food>().Count() || id < 1) { return; }
-        var set = _dbContext.Set<Food>();
+        if (id > dbContext.Set<Food>().Count() || id < 1) { return; }
+        var set = dbContext.Set<Food>();
         Food toModify = set.FirstOrDefault(x => x.Id == id);
         if (toModify != null)
             set.Remove(toModify);
-        _dbContext.SaveChanges();
+        dbContext.SaveChanges();
 
     }
 
@@ -41,7 +41,7 @@ public class FoodService
     {
         List<Food> foundItems = new List<Food>();
 
-        foreach (var item in _dbContext.Set<Food>())
+        foreach (var item in dbContext.Set<Food>())
         {
             if (item.Name == name)
             {
@@ -53,22 +53,22 @@ public class FoodService
 
     public void Update(int id, Food f)
     {
-        Food toModify = _dbContext.Set<Food>().FirstOrDefault(x => x.Id == id);
+        Food toModify = dbContext.Set<Food>().FirstOrDefault(x => x.Id == id);
         if (toModify != null)
         {
-            _dbContext.Remove(toModify);
-            _dbContext.SaveChanges();
+            dbContext.Remove(toModify);
+            dbContext.SaveChanges();
         }
     }
 
     public List<Food> returnPage(int page, int elements)
     {
-        return _dbContext.Set<Food>().Skip<Food>(page*elements).Take<Food>(elements).ToList<Food>();
+        return dbContext.Set<Food>().Skip<Food>(page*elements).Take<Food>(elements).ToList<Food>();
     }
 
 /*    public Food getRandom()
     {
-        var set = _dbContext.Set<Food>();
+        var set = dbContext.Set<Food>();
         int rnd = new Random().Next(1, set.Count());
 
         Food randomItem = context.Find(x => x.Id == rnd);

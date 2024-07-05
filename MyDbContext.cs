@@ -11,11 +11,5 @@ namespace FA
         public MyDbContext(DbContextOptions options) : base(options) { }
         public DbSet<Food> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var sqliteConn = new SqliteConnection(@"DataSource = db.db");
-            optionsBuilder.UseSqlite(sqliteConn);
-        }
-
     }
 }
