@@ -5,7 +5,7 @@ const Footer = () => {
 
   return (
     <footer className='footer'>
-      <a href={'https://github.com/rVladq/VISION/tree/day2_added-DB'} target="_blank" rel="noopener noreferrer">
+      <a href={'https://github.com/rVladq/VISION/tree/frontend'} target="_blank" rel="noopener noreferrer">
         <p>GitHub</p>
       </a>
     </footer>
