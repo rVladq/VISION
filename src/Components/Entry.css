@@ -1,0 +1,72 @@
+.entry-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 25px;
+    padding: 5px;
+    margin-bottom: 50px;
+    background-color: antiquewhite;
+    opacity: 100%;
+    border-radius: 15px;
+    min-width: 60%;
+    max-width: 100%;
+    flex: 0 1 auto;
+    transition: 0.3s;
+}
+
+.entry-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px 7px rgb(67, 42, 11);
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(251, 96, 0);
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 25px;
+    border-radius: 7px;
+    transition: 0.3s;
+}
+
+.delete_button {
+    width: 55px;
+
+}
+
+.delete_button:hover {
+    transform: scale(1.15);
+    /* box-shadow: 0 0 3px 1px rgb(251, 96, 0); */
+}
+
+.edit_button {
+    width: 35px;
+    background-color: rgb(147, 147, 255);
+}
+
+.edit_button:hover {
+    transform: scale(1.15);
+    /* box-shadow: 0 0 3px 1px rgb(147, 147, 255); */
+}
+
+.entry {
+    text-align: center;
+}
+
+.id {
+    width: 50px;
+}
+
+.name {
+    width: 50px;
+}
+
+.description {
+    width: 50px;
+}
+
+.recipe {
+    width: 50px;
+}
