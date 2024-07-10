@@ -1,8 +1,9 @@
 import './EntryForm.css'
 
-export default function EntryForm( { data, handleInput, handleSubmit } ) {
+export default function EntryForm( { data, handleInput, handleSubmit, handleExit } ) {
 
-
+    console.log(handleInput);
+    console.log(handleExit);
 
     return (
         <div className="entryForm-wrapper">
@@ -37,6 +38,10 @@ export default function EntryForm( { data, handleInput, handleSubmit } ) {
                 </div>
                 <button type="submit">Submit</button>
             </form>
+
+            <div className='return-button' >x</div>
+
         </div>
     );
+
 }

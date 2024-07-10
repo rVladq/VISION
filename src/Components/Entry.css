@@ -4,7 +4,7 @@
     align-items: center;
     gap: 25px;
     padding: 5px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     background-color: antiquewhite;
     opacity: 100%;
     border-radius: 15px;
@@ -12,6 +12,7 @@
     max-width: 100%;
     flex: 0 1 auto;
     transition: 0.3s;
+    height: 60px;
 }
 
 .entry-wrapper:hover {

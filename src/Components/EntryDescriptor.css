@@ -1,0 +1,21 @@
+.entrydescriptor-wrapper{
+
+    background-color: rgb(255, 225, 185);
+    font-weight: 900;
+    height: 35px;
+    margin-bottom: 50px;
+
+
+}
+
+.descr_edit_button {
+    background-color: rgba(240, 248, 255, 0);
+}
+
+.descr_delete_button {
+    background-color: rgba(240, 248, 255, 0);
+}
+
+.entrydescriptor-wrapper:hover{
+    transform: scale(1);
+}

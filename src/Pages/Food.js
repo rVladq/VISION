@@ -10,23 +10,25 @@ import List from '../Components/List'
 export default function Food() {
 
 	const [isLoaded, setIsLoaded] = useState(false);
-	const [food, setFood] = useState(undefined);
+	const [food, setFood] = useState([]);
 
 	useEffect(() => {
 
 		(async () => {
-			const _food = await fetchFood();
-			setFood(_food);
+			const fetchedFood = await fetchFood();
+			setFood(fetchedFood);
 			setIsLoaded(true);
 		})();
 
 	}, [isLoaded]);
 
+
+
 	return (
     <>
 		{!isLoaded ? '' : 
 			<div className='main'>
-				<List data={food} refresh={setIsLoaded} />
+				<List data={food} refresh={setIsLoaded} /> : ''
 			</div>
 		}
     </>

@@ -29,28 +29,29 @@ export default function ModifyFood() {
         
     }, []);
 
-
-   
-
-    function handleInput(e) {
+    const handleInput = (e) => {
 
         const { id, value } = e.target;
         setFood((prev) => ({ ...prev, [id]: value }))
 
     };
 
-
     const handleSubmit = async (e) => {
         
         e.preventDefault();
-        console.log(food);
         await putFood(id, food);
         navigate('/food');
         
     }
 
+    const handleExit = () => {
+
+        console.log('!');
+
+    }
+
     return (
-        <EntryForm data={food} handleInput={handleInput} handleSubmit={handleSubmit} />
+        <EntryForm data={food} handleInput={handleInput} handleSubmit={handleSubmit} handleExit={handleExit} />
     );
 
 };

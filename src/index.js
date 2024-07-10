@@ -26,6 +26,10 @@ const router = createBrowserRouter([
         path: "/food/:id",
         element: <ModifyFood/>,
       },
+      {
+        path: "*",
+        element: <Food/>,
+      },
     ]
   }
 ]);
